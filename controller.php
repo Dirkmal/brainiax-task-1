@@ -1,6 +1,7 @@
 <?php
     Class Task1 {
         private $database = "users.db";
+        public $session_name = "brain-x";
         public $message_types = array(0 => "error", 1 => "success", 2 => "info");
 
         /**
@@ -15,22 +16,51 @@
             $alert_type = $this->message_types[$type];
             $title = ucfirst($alert_type);
 
-			echo "<div class='modal_background' onclick='this.style.display=\"none\";'>
+			echo "<div class='modal_background' onclick='closeModal();'>
 					<div class='alert alert-$alert_type'>
-						<span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
-                        <strong>$title!</strong>
-                        <p>$message</p>
+						<span class='closebtn' onclick='closeModal();'>&times;</span>
+                        <p>
+                            <span class='alert-title'>$title!</span>
+                            $message
+                        </p>
                         <a href='$link' class='alert-link'>$link_msg</a>
 					</div>
 				</div>";
         }
 
+        /**
+         * @param string $username Account username
+         * @param string $password Account password
+         * @return json containing status of the login, true if successful
+         * Uses sessions
+         */
         function signIn($username, $password) {
+            $db = file_get_contents($this->database);
+            $db_contents = json_decode($db, true);
 
+            if (!empty($db_contents) && $this->userExists($username)) {
+                $pash = password_hash($password, PASSWORD_BCRYPT);
+
+                if ($db_contents["$username"]["password"] === $pash) {
+                    $_SESSION[$this->session_name] = md5($username);
+                    return $this->sendResponse("Login successful", true);
+                } else {
+                    return $this->sendResponse("Invalid username or password", false);
+                }
+            } else {
+                return $this->sendResponse("Account not registered");
+            }
         }
 
-        function signOut($username) {
-
+        /**
+         * Unsets a session
+         */
+        function signOut() {
+            @session_start();
+			if(isset($_SESSION[$this->session_name])){
+				session_unset();
+            }	
+            return $this->sendResponse("You have been logged out", true);
         }
 
         /**
