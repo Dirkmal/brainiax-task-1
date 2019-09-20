@@ -42,7 +42,7 @@
                 $saved_pass = $db_contents["$username"]["password"];
                 if (password_verify($password, $saved_pass)) {
                     $_SESSION[$this->session_name] = md5($username);
-                    return $this->sendResponse("Login successful", true);
+                    return $this->sendResponse("Login successful, Welcome $username", true);
                 } else {
                     return $this->sendResponse("Invalid username or password", false);
                 }

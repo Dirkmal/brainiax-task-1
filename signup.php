@@ -49,13 +49,24 @@
     <div class="container">
         <h2> Sign Up</h2>
         <h4> Already have an account? <a class="signup-link" href="index.html">Sign In here</a></h4>
-        <form action="signup.php" method="post">
-            <input type="text" placeholder=" Username" name="username" autofocus required> <br>
-            <input type="email" placeholder=" Email" name="email" required> <br>
-            <input type="password" placeholder=" Password" name="password" required> <br>
-            <input type="password" placeholder="Confirm Password" required>
-            <button class="div-btn" type="submit" name="sign-up">Sign Up</button>
+        <form action="signup.php" method="post" id="sign-up-form">
+            <input type="text" placeholder=" Username" name="username" id="username" autofocus required> <br>
+            <input type="email" placeholder=" Email" name="email" id="email" required> <br>
+            <input type="password" placeholder=" Password" name="password" id="pass" required> <br>
+            <input type="password" placeholder="Confirm Password" id="conpass" required>
+            <button class="hide" type="submit" name="sign-up">Sign Up</button>
+            <button class="div-btn" id="signUp" type="button">Sign Up</button>
         </form>
+    </div>
+
+    <div id='js_m_bg' onclick='closeJsAlert();'>
+        <div class='alert alert-info'>
+            <span class='closebtn' onclick='closeJsAlert();'>&times;</span>
+            <p>
+                <span class='alert-title'>Info!</span>
+                <span id="js_m_text"></span>
+            </p>
+        </div>
     </div>
     <script type="text/javascript" src="javascript/signup.login.js"></script>
 </body>
