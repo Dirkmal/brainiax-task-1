@@ -16,7 +16,7 @@
             $alert_type = $this->message_types[$type];
             $title = ucfirst($alert_type);
 
-			echo "<div class='modal_background' onclick='closeModal();'>
+			echo "<div id='modal_background' onclick='closeModal();'>
 					<div class='alert alert-$alert_type'>
 						<span class='closebtn' onclick='closeModal();'>&times;</span>
                         <p>
@@ -39,15 +39,15 @@
             $db_contents = json_decode($db, true);
 
             if (!empty($db_contents) && $this->userExists($username)) {
-                $pash = password_hash($password, PASSWORD_BCRYPT);
-
-                if ($db_contents["$username"]["password"] === $pash) {
+                $saved_pass = $db_contents["$username"]["password"];
+                if (password_verify($password, $saved_pass)) {
                     $_SESSION[$this->session_name] = md5($username);
                     return $this->sendResponse("Login successful", true);
                 } else {
                     return $this->sendResponse("Invalid username or password", false);
                 }
             } else {
+                $this->signOut();
                 return $this->sendResponse("Account not registered");
             }
         }
@@ -77,6 +77,10 @@
                
                 $pash = password_hash($password, PASSWORD_BCRYPT);
             
+                if (!file_exists($this->database)) {
+                    $fp = fopen($this->database, 'w'); 
+                    fclose($fp);
+                }
                 $db = file_get_contents($this->database);
                 $db_contents = json_decode($db, true);
                 
