@@ -49,13 +49,12 @@
     <div class="container">
         <h2> Sign Up</h2>
         <h4> Already have an account? <a class="signup-link" href="index.html">Sign In here</a></h4>
-        <form action="signup.php" method="post" id="sign-up-form">
+        <form action="signup.php" method="post" id="sign-up-form" name="su" onsubmit="return signup();">
             <input type="text" placeholder=" Username" name="username" id="username" autofocus required> <br>
             <input type="email" placeholder=" Email" name="email" id="email" required> <br>
             <input type="password" placeholder=" Password" name="password" id="pass" required> <br>
             <input type="password" placeholder="Confirm Password" id="conpass" required>
-            <button class="hide" type="submit" name="sign-up">Sign Up</button>
-            <button class="div-btn" id="signUp" type="button">Sign Up</button>
+            <button class="div-btn" type="submit" name="sign-up">Sign Up</button>
         </form>
     </div>
 

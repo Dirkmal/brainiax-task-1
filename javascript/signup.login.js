@@ -1,26 +1,3 @@
-try {
-    document.getElementById("signUp").addEventListener("click", checkUp);
-} catch(e) {
-    console.log('Currently on sign up page');
-}
-
-try {
-    document.getElementById("signIn").addEventListener("click", checkIn);
-} catch (e) {
-    console.log('Currently on sign in page');
-}
-
-function checkIn() {
-    if (signin()) {
-        document.getElementById('sign-in-form').submit();
-    }
-}
-
-function checkUp() {
-    if (signup()) {
-        document.getElementById('sign-up-form').submit();
-    }
-}
 
 function signup() {
     // collecting data and assigning to variables

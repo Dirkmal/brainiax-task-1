@@ -45,11 +45,10 @@
     <div class="container">
         <h2> Sign In</h2>
         <h3> New to Brainiax? <a class="signup-link" href="signup.php">Sign Up here</a></h3>
-        <form action="index.php" method="post" id="sign-in-form">
+        <form action="index.php" method="post" id="sign-in-form" name="si" onsubmit="return signin();">
             <input type="text" placeholder=" Username" name="username" id="username" autofocus required> <br>
             <input type="password" placeholder=" Password" name="password" id="pass" required>
-            <button class="hide" type="submit" name="sign-in">Sign In</button>
-            <button class="div-btn" id="signIn" type="button">Sign In</button>
+            <button class="div-btn" type="submit" name="sign-in">Sign In</button>
         </form>
     </div>
 
